@@ -35,4 +35,5 @@ def loopForCommand():
                 centerWheels(val)
 
 if __name__ == "__main__":
+    align.start(straight)
     loopForCommand()
