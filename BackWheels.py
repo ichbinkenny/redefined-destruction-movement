@@ -5,14 +5,18 @@ motorPin = 18
 
 GPIO.setmode(GPIO.BCM)
 
+GPIO.setup(motorPin, GPIO.OUT)
+
 motor = GPIO.PWM(motorPin, 50)
 
 def speedControl():
     while True:
-        for line in sys.stdin:
-            if int(line.strip()) is not None:
-                val = int(line.strip())
-                motor.ChangeDutyCycle(val)
+        line = sys.stdin.readline().strip()
+        try:
+            val = float(line)
+            motor.ChangeDutyCycle(val)
+        except:
+            print("Unexpected value")
 
 if __name__ == "__main__":
     motor.start(0)
