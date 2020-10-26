@@ -25,7 +25,7 @@ def centerWheels(val):
     align.ChangeDutyCycle(straight)
 
 def loopForCommand():
-    line = sys.stdin.readline()
+    line = sys.stdin.readline().strip()
     try:
         val = float(line)
         if val > 0:
@@ -39,4 +39,5 @@ def loopForCommand():
 
 if __name__ == "__main__":
     align.start(straight)
-    loopForCommand()
+    while True:
+        loopForCommand()
