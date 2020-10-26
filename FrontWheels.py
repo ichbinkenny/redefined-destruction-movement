@@ -5,7 +5,7 @@ align_servo = 17
 full_left = 2.0
 straight = 7.0
 full_right = 12.0
-fragment_amount = 100.0
+fragment_amount = 10.0
 
 GPIO.setmode(GPIO.BCM)
 
@@ -27,14 +27,17 @@ def centerWheels(val):
 def loopForCommand():
     for line in sys.stdin:
         print(line)
-        if int(line.strip()) is not None:
-            val = int(line.strip())
-            if val < 0:
-                turnLeft(val)
-            elif val > 0:
-                turnRight(val)
-            else:
-                centerWheels(val)
+        try:
+                if float(line.strip()) is not None:
+            	        val = float(line.strip())
+            	        if val < 0:
+                	        turnLeft(val)
+            	        elif val > 0:
+                	        turnRight(val)
+                else:
+                    centerWheels(val)
+        except:
+            print("Unexpected format.")
 
 if __name__ == "__main__":
     align.start(straight)
