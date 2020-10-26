@@ -3,6 +3,8 @@ import sys
 
 motorPin = 18
 
+maxCycle = 12
+
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(motorPin, GPIO.OUT)
@@ -14,7 +16,7 @@ def speedControl():
         line = sys.stdin.readline().strip()
         try:
             val = float(line)
-            motor.ChangeDutyCycle(val)
+            motor.ChangeDutyCycle(val * maxCycle)
         except:
             print("Unexpected value")
 
