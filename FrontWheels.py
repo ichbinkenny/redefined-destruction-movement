@@ -25,19 +25,17 @@ def centerWheels(val):
     align.ChangeDutyCycle(straight)
 
 def loopForCommand():
-    for line in sys.stdin:
-        print(line)
-        try:
-                if float(line.strip()) is not None:
-            	        val = float(line.strip())
-            	        if val < 0:
-                	        turnLeft(val)
-            	        elif val > 0:
-                	        turnRight(val)
-                else:
-                    centerWheels(val)
-        except:
-            print("Unexpected format.")
+    line = sys.stdin.readline()
+    try:
+        val = float(line)
+        if val > 0:
+            turnRight(val)
+        elif val < 0:
+            turnLeft(val)
+        else:
+            centerWheels(val)
+    except:
+        print("Unexpected number format")
 
 if __name__ == "__main__":
     align.start(straight)
