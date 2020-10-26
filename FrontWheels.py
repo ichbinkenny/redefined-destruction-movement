@@ -9,6 +9,8 @@ fragment_amount = 100.0
 
 GPIO.setmode(GPIO.BCM)
 
+motor = GPIO.setup(align_servo, GPIO.OUT)
+
 align = GPIO.PWM(align_servo, 50)
 
 def turnLeft(val):
