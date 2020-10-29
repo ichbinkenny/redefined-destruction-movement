@@ -12,7 +12,7 @@ armor_panel_2 = GPIO.setup(armor_panel_2_pin, GPIO.IN)
 armor_panel_3 = GPIO.setup(armor_panel_3_pin, GPIO.IN)
 
 def readArmorStatus():
-    armor_status = [GPIO.input(armor_panel_1_pin) == GPIO.HIGH, GPIO.input(armor_panel_2_pin) == GPIO.HIGH, GPIO.input(armor_panel_3_pin) == GPIO.HIGH]
+    armor_status = [int(GPIO.input(armor_panel_1_pin) == GPIO.HIGH), int(GPIO.input(armor_panel_2_pin) == GPIO.HIGH), int(GPIO.input(armor_panel_3_pin) == GPIO.HIGH)]
     print("{}:{}:{}".format(armor_status[0], armor_status[1], armor_status[2]))
 
 if __name__ == "__main__":
