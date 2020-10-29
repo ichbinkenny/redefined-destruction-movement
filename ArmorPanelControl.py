@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import sys
 
 GPIO.setmode(GPIO.BCM)
 
@@ -12,8 +13,7 @@ armor_panel_3 = GPIO.setup(armor_panel_3_pin, GPIO.IN)
 
 def readArmorStatus():
     armor_status = [GPIO.input(armor_panel_1_pin) == GPIO.HIGH, GPIO.input(armor_panel_2_pin) == GPIO.HIGH, GPIO.input(armor_panel_3_pin) == GPIO.HIGH]
-    ## TODO send armor status to parent input
-    print("A1 Connected: {}\nA2 Connected: {}\nA3 Connected: {}".format(armor_status[0], armor_status[1], armor_status[2]))
+    print("{}:{}:{}".format(armor_status[0], armor_status[1], armor_status[2]))
 
 if __name__ == "__main__":
     readArmorStatus()
