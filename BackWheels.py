@@ -12,7 +12,7 @@ GPIO.setup(motorPin, GPIO.OUT)
 motor = GPIO.PWM(motorPin, 50)
 
 def stop():
-    motor.stop()
+    motor.ChangeDutyCycle(0)
 
 def speedControl():
     while True:
