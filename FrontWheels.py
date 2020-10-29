@@ -13,6 +13,9 @@ motor = GPIO.setup(align_servo, GPIO.OUT)
 
 align = GPIO.PWM(align_servo, 50)
 
+def stop():
+    centerWheels(straight)
+
 def turnLeft(val):
     direction = ((straight - full_left) / fragment_amount) * abs(val)
     align.ChangeDutyCycle(direction)
