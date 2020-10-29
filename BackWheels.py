@@ -11,6 +11,9 @@ GPIO.setup(motorPin, GPIO.OUT)
 
 motor = GPIO.PWM(motorPin, 50)
 
+def stop():
+    motor.stop()
+
 def speedControl():
     while True:
         line = sys.stdin.readline().strip()
