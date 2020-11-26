@@ -5,6 +5,8 @@ motorPin = 18
 
 maxCycle = 12
 
+GPIO.setwarnings(False)
+
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(motorPin, GPIO.OUT)

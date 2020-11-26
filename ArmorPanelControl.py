@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import sys
 
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 armor_panel_1_pin = 22

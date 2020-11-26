@@ -7,6 +7,8 @@ straight = 7.0
 full_right = 12.0
 fragment_amount = 10.0
 
+GPIO.setwarnings(False)
+
 GPIO.setmode(GPIO.BCM)
 
 motor = GPIO.setup(align_servo, GPIO.OUT)
