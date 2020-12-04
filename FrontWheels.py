@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import sys
 
-align_servo = 17
+align_servo = 25
 full_left = 2.0
 straight = 7.0
 full_right = 12.0
@@ -19,11 +19,13 @@ def stop():
     centerWheels(straight)
 
 def turnLeft(val):
-    direction = ((straight - full_left) / fragment_amount) * abs(val)
+    direction = (straight + (val * 5))
+#((straight - full_left) / fragment_amount) * abs(val)
     align.ChangeDutyCycle(direction)
 
 def turnRight(val):
-    direction = ((full_right - straight) / fragment_amount) * abs(val)
+    direction = (straight + (val * 5))
+#((full_right - straight) / fragment_amount) * abs(val)
     align.ChangeDutyCycle(direction)
 
 def centerWheels(val):

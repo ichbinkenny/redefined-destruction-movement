@@ -1,7 +1,9 @@
 import RPi.GPIO as GPIO
 import sys
+import re
 
 motorPin = 18
+revPin = 27
 
 maxCycle = 12
 
@@ -10,21 +12,40 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(motorPin, GPIO.OUT)
+GPIO.setup(revPin, GPIO.OUT)
 
-motor = GPIO.PWM(motorPin, 50)
+#motor = GPIO.PWM(motorPin, 50)
+#rev = GPIO.PWM(revPin, 50)
 
 def stop():
-    motor.ChangeDutyCycle(0)
+    GPIO.output(motorPin, GPIO.LOW)
+    GPIO.output(revPin, GPIO.LOW)
 
 def speedControl():
     while True:
-        line = sys.stdin.readline().strip()
+        line = re.sub(r"-?\D", "", sys.stdin.readline().strip())
+        val = 0.0
+        if 'world!' in line:
+            continue
+        #debug = open('back_debug.txt', 'a')
         try:
+        #    with open('test.txt', 'a') as f:
+       #         f.write(line)
             val = float(line)
-            motor.ChangeDutyCycle(val * maxCycle)
-        except:
-            print("Unexpected value")
+        except ValueError:
+            val = 0
+            with open('test.txt', 'a') as f:
+                f.write("ERRR: %s\n" % line)
+        finally:
+           # debug.close()
+            if val > 0.0:
+                GPIO.output(motorPin, GPIO.HIGH)
+                GPIO.output(revPin, GPIO.LOW)
+            elif val < 0.0:
+                GPIO.output(motorPin, GPIO.LOW)
+                GPIO.output(revPin, GPIO.HIGH)
+            else:
+                stop()
 
 if __name__ == "__main__":
-    motor.start(0)
     speedControl()
