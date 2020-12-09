@@ -17,10 +17,16 @@ GPIO.setup(revPin, GPIO.OUT)
 #motor = GPIO.PWM(motorPin, 50)
 #rev = GPIO.PWM(revPin, 50)
 
+### Test notes
+# when called, motor stops moving. 
 def stop():
     GPIO.output(motorPin, GPIO.LOW)
     GPIO.output(revPin, GPIO.LOW)
-
+### Test notes
+# when position is positive, device moves forward.
+# when negative, output is present but motor does not move. Likely HW problem.
+# Unknown values cause device to stop?: YES
+# Passed: 2 Failed: 1
 def speedControl():
     while True:
         line = re.sub(r"-?\D", "", sys.stdin.readline().strip())

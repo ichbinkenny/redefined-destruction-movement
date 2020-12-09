@@ -19,15 +19,24 @@ weapon = GPIO.PWM(weapon_pin, 50)
 
 weapon_movement_proc = None
 
+### Testing notes
+# Weapon returns to starting position?: TRUE
+# Passing: 1 Failing: 0
 def weapon_reset():
     global weapon
     weapon.ChangeDutyCycle(weapon_min_duty)
 
+### Testing notes
+# Weapon moves to max position?: True
+# Passing: 1 Failing: 0
 def start_attacking():
     global should_attack
     should_attack = True
     weapon.ChangeDutyCycle(12.0)
 
+### Testing notes
+# Weapon returns to starting position?: TRUE
+# Passing: 1 Failing: 0
 def stop_attacking():
     global should_attack
     should_attack = False
@@ -35,23 +44,28 @@ def stop_attacking():
     sys.stdout.flush()
     weapon_reset()
 
+### Testing notes
+# Weapon moves to max on button press?: TRUE
+# Weapon resets to min on button release?: TRUE
 def parseCommand(cmd):
     global should_attack
     global weapon
-    test = open('cmd_debug.txt', 'a')
+#    test = open('cmd_debug.txt', 'a')
     if 'pressed' in cmd:
         weapon.ChangeDutyCycle(12.0)
-        test.write("Attacking!\n")
-#        weapon_movement_proc.start()
+#        test.write("Attacking!\n")
     elif 'released' in cmd:
         weapon.ChangeDutyCycle(2.0)
-        test.write("Stopping!\n")
-        #stop_attacking()
+#        test.write("Stopping!\n")
     else: # Assume we got a weapon type
         global weapon_type
         weapon_type = cmd
-    test.close()
+#    test.close()
 
+### Test notes
+# Unspecified Weapon moves to mid position: TRUE
+# Specified Weapon moves to full attack: TRUE
+# Passing: 2 Failing: 0
 def attackLoop(should_attack, weapon):
     global weapon_duty
     while True:
@@ -89,16 +103,9 @@ def setup():
     global weapon
     weapon.start(2.0)
     weapon_reset()
-#    sys.stdout.write(bytes("GOT HERE", "utf-8"))
-#    sys.stdout.flush()
     global weapon_movement_proc
-    #weapon_movement_proc = multiprocessing.Process(target=attackLoop, args=(should_attack, weapon))
-    #weapon_movement_proc.start()
     while True:
-        #debug = open('debug.txt', 'a')
         cmd = sys.stdin.readline().strip()
-        #debug.write(cmd)
-        #debug.close()
         parseCommand(cmd)
 
 if __name__ == "__main__":
